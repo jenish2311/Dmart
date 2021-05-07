@@ -8,9 +8,6 @@
 import Foundation
 import UIKit
 
-
-
-
 extension String {
     func strikeThrough() -> NSAttributedString {
         let attributeString =  NSMutableAttributedString(string: self)
