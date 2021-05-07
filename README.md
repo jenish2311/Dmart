@@ -30,6 +30,9 @@ Assignment 2
 - The rendering of the page will be from the json file which will be stored in the project itself .
 - The Testing will be done by adding / deleting / updating the components and the data values of the component.
 
+## Json File Located here
+https://github.com/jenish2311/Dmart/blob/main/Demo/test.json
+
 
 
 
