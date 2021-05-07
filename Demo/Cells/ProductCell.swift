@@ -42,7 +42,6 @@ class ProductCell : UITableViewCell {
             btnAddToCart.backgroundColor = UIColor.systemGreen
             btnAddToCart.tintColor = .white
         }
-        
     }
     override class func awakeFromNib() {
         super.awakeFromNib()
@@ -59,22 +58,22 @@ class ProductCell : UITableViewCell {
             let discount = (qty.mrp ?? 0) - (qty.payablePrice ?? 0)
             if discount != 0 && qty.payablePrice != 0{
                 self.lblDiscount.isHidden = false
-                self.lblDiscount.text = "Save \u{20B9} \(discount)"
+                self.lblDiscount.text = "Save \(Helper.shared.currency) \(discount)"
             }else{
                 self.lblDiscount.isHidden = true
                 ///Discount lable is hide when discount value is zero.
             }
             ///Hide Dmart price id payablePrice and MRP same or payable price should be zero
             self.lblOurPrice.isHidden = (qty.payablePrice == 0 || qty.payablePrice == qty.mrp)
-            self.lblOurPrice.text = "DMart \u{20B9} \(qty.payablePrice ?? 0)"
+            self.lblOurPrice.text = "DMart \(Helper.shared.currency) \(qty.payablePrice ?? 0)"
             
-            self.lblMRP.isHidden = qty.mrp == 0
+            self.lblMRP.isHidden = qty.mrp == 0 /// it is hide if MRP is zero.
             self.lblMRP.attributedText = nil
             if qty.payablePrice != qty.mrp && qty.payablePrice != 0 {
                 /// Stricke throw only display when paybale price and  MRP are not same and payable is not zero.
-                self.lblMRP.attributedText = "MRP \u{20B9} \(qty.mrp ?? 0)".strikeThrough()
+                self.lblMRP.attributedText = "MRP \(Helper.shared.currency) \(qty.mrp ?? 0)".strikeThrough()
             }else{
-                self.lblMRP.text = "MRP \u{20B9} \(qty.mrp ?? 0)"
+                self.lblMRP.text = "MRP \(Helper.shared.currency) \(qty.mrp ?? 0)"
             }
         }else{
             self.lblMRP.isHidden = true

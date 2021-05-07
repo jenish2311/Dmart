@@ -9,9 +9,8 @@ import UIKit
 import Kingfisher
 
 enum TypeOfList : Int {
-    case banner = 1,  productOnly, productWithPrice
+    case banner = 1, productOnly, productWithPrice
 }
-
 class SecondVC: UIViewController {
     @IBOutlet weak var tblDetails: UITableView! {
         didSet {
@@ -26,29 +25,20 @@ class SecondVC: UIViewController {
         self.loadJson()
         // Do any additional setup after loading the view.
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 extension SecondVC {
-   private func loadJson() {
+    private func loadJson() {
         if let path = Bundle.main.path(forResource: "test", ofType: "json") {
             do {
-                  let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                    let objects = parsingManager<M_DetailsData>().parse(from: data)
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let objects = parsingManager<M_DetailsData>().parse(from: data)
                 if objects?.status == "200" {
                     self.arrayOFData = objects?.result?.list ?? []
                     self.tblDetails.reloadData()
                 }
-              } catch {
-                   // handle error
-              }
+            } catch {
+                // handle error
+            }
         }
     }
 }
@@ -78,16 +68,16 @@ extension SecondVC: UITableViewDataSource {
             cell.selectionStyle = .none
             if let url = URL(string: data.bannerImage ?? "") {
                 KingfisherManager.shared.retrieveImage(with: ImageResource(downloadURL: url), options: nil, progressBlock: nil) { result in
-                        switch result {
-                        case .success(let value):
-                            //print("Image: \(value.image). Got from: \(value.cacheType)")
-                            tableView.beginUpdates()
-                            cell.setCustomImage(image: value.image)
-                            tableView.endUpdates()
-                        case .failure(let error):
-                            print("Error: \(error)")
-                        }
+                    switch result {
+                    case .success(let value):
+                        //print("Image: \(value.image). Got from: \(value.cacheType)")
+                        tableView.beginUpdates()
+                        cell.setCustomImage(image: value.image)
+                        tableView.endUpdates()
+                    case .failure(let error):
+                        print("Error: \(error)")
                     }
+                }
             }
             return cell
         case .productWithPrice:
@@ -108,45 +98,3 @@ extension SecondVC: UITableViewDataSource {
         }
     }
 }
-
-/*extension SecondVC : UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.arrayOFData.count
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let data = self.arrayOFData[section]
-        if data.type == .banner {
-            return 1
-        }
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let data = self.arrayOFData[indexPath.section]
-        switch data.type {
-        case .banner:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ImageCollectionCell.self), for: indexPath) as? ImageCollectionCell else {
-                return UICollectionViewCell()
-            }
-            
-            
-            if let url = URL(string: data.bannerImage ?? "") {
-                KingfisherManager.shared.retrieveImage(with: ImageResource(downloadURL: url), options: nil, progressBlock: nil) { result in
-                        switch result {
-                        case .success(let value):
-                            //print("Image: \(value.image). Got from: \(value.cacheType)")
-                            cell.setCustomImage(image: value.image)
-                        case .failure(let error):
-                            print("Error: \(error)")
-                        }
-                    }
-            }
-            return cell
-        default:
-            return UICollectionViewCell()
-        }
-        
-    }
-    
-    
-}*/
