@@ -28,7 +28,7 @@ Assignment 2
 - The json will decide how many components will be there and in what sequence .
 - Static data such as (image url , name, value , description) will be part of the same json structure itself . 
 - The rendering of the page will be from the json file which will be stored in the project itself .
-- The Testing will be done by adding / deleting / updating the components and the data values of the component .
+- The Testing will be done by adding / deleting / updating the components and the data values of the component.
 
 
 
